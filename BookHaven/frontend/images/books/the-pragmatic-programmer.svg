@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 600" role="img" aria-label="The Pragmatic Programmer by Andrew Hunt">
+<rect width="400" height="600" fill="#0F172A"/>
+<rect x="24" y="24" width="352" height="552" rx="6" fill="none" stroke="#C4B5FD" stroke-opacity=".35" stroke-width="2"/>
+<rect x="0" y="0" width="22" height="600" fill="#000" fill-opacity=".18"/>
+<text x="200" y="190" text-anchor="middle" font-family="Georgia, serif" font-size="40" font-weight="700" fill="#C4B5FD">The Pragmatic</text>
+<text x="200" y="240" text-anchor="middle" font-family="Georgia, serif" font-size="40" font-weight="700" fill="#C4B5FD">Programmer</text>
+<line x1="140" y1="296" x2="260" y2="296" stroke="#C4B5FD" stroke-opacity=".6" stroke-width="2"/>
+<text x="200" y="336" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" fill="#C4B5FD" fill-opacity=".9">Andrew Hunt</text>
+<text x="200" y="548" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#C4B5FD" fill-opacity=".6">BookHaven</text>
+</svg>

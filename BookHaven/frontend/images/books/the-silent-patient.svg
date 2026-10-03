@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 600" role="img" aria-label="The Silent Patient by Alex Michaelides">
+<rect width="400" height="600" fill="#4C1D95"/>
+<rect x="24" y="24" width="352" height="552" rx="6" fill="none" stroke="#EDE9FE" stroke-opacity=".35" stroke-width="2"/>
+<rect x="0" y="0" width="22" height="600" fill="#000" fill-opacity=".18"/>
+<text x="200" y="190" text-anchor="middle" font-family="Georgia, serif" font-size="40" font-weight="700" fill="#EDE9FE">The Silent</text>
+<text x="200" y="240" text-anchor="middle" font-family="Georgia, serif" font-size="40" font-weight="700" fill="#EDE9FE">Patient</text>
+<line x1="140" y1="296" x2="260" y2="296" stroke="#EDE9FE" stroke-opacity=".6" stroke-width="2"/>
+<text x="200" y="336" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" fill="#EDE9FE" fill-opacity=".9">Alex Michaelides</text>
+<text x="200" y="548" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#EDE9FE" fill-opacity=".6">BookHaven</text>
+</svg>

@@ -1,0 +1,70 @@
+/* BookHaven - checkout.css (builds on cart.css: tokens, header, buttons, summary card) */
+
+.checkout-main { display: flex; flex-direction: column; gap: 24px; min-width: 0; }
+
+.panel {
+  padding: 28px; background: #fff; border: 1px solid var(--border);
+  border-radius: var(--radius-lg); box-shadow: var(--shadow);
+}
+.panel__title { font-family: var(--font-serif); font-size: 1.35rem; margin-bottom: 20px; }
+
+.field-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+.field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.field--full { grid-column: 1 / -1; }
+.field label { font-weight: 600; font-size: 0.9rem; }
+.field-error { min-height: 0; color: var(--danger); font-size: 0.85rem; font-weight: 500; }
+.field-error:empty { display: none; }
+.form-error { padding: 10px 14px; border-radius: 10px; background: var(--danger-light); color: var(--danger); font-size: 0.9rem; font-weight: 500; }
+
+.pay-options { margin: 0; padding: 0; border: 0; display: flex; flex-direction: column; gap: 12px; }
+.pay-option {
+  display: flex; align-items: center; gap: 14px; padding: 16px 18px; cursor: pointer;
+  border: 1.5px solid var(--border); border-radius: var(--radius); background: #fff;
+  transition: border-color .15s, background-color .15s;
+}
+.pay-option:hover { border-color: var(--purple); }
+.pay-option:has(input:checked) { border-color: var(--purple); background: var(--purple-light); }
+.pay-option:has(input:focus-visible) { outline: 3px solid rgba(112, 40, 223, 0.45); outline-offset: 2px; }
+.pay-option input { width: 20px; height: 20px; accent-color: var(--purple); flex-shrink: 0; }
+.pay-option__body { display: flex; flex-direction: column; }
+.pay-option__body small { color: var(--muted); }
+.pay-details { margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--border); }
+.pay-note { margin-top: 16px; color: var(--muted); font-size: 0.85rem; }
+
+.mini-items { display: flex; flex-direction: column; gap: 14px; max-height: 280px; overflow-y: auto; padding-right: 4px; }
+.mini-item { display: grid; grid-template-columns: 44px minmax(0, 1fr) auto; gap: 12px; align-items: center; }
+.mini-item img { width: 44px; height: 64px; object-fit: cover; border-radius: 6px; background: var(--purple-light); }
+.mini-item__title { font-weight: 600; font-size: 0.92rem; line-height: 1.3; }
+.mini-item__meta { color: var(--muted); font-size: 0.82rem; }
+.mini-item__total { font-weight: 600; font-size: 0.92rem; white-space: nowrap; }
+
+/* Confirmation */
+.confirmation {
+  max-width: 640px; margin: 24px auto 80px; padding: 48px 32px; text-align: center;
+  background: var(--purple-light); border-radius: var(--radius-lg);
+  display: flex; flex-direction: column; align-items: center; gap: 14px;
+}
+.confirmation__check { width: 76px; height: 76px; display: grid; place-items: center; border-radius: 999px; background: var(--purple); color: #fff; box-shadow: 0 8px 24px rgba(112, 40, 223, 0.35); }
+.confirmation__title { font-family: var(--font-serif); font-size: clamp(1.7rem, 4vw, 2.2rem); line-height: 1.2; }
+.confirmation__title:focus { outline: none; }
+.confirmation__text { color: var(--muted); max-width: 440px; }
+.confirmation__facts { width: 100%; margin: 12px 0; padding: 20px; background: #fff; border-radius: var(--radius); box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 14px; text-align: left; }
+.confirmation__facts div { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.confirmation__facts dt { color: var(--muted); }
+.confirmation__facts dd { margin: 0; font-weight: 700; word-break: break-all; text-align: right; }
+.confirmation__actions { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+
+/* Order details dialog */
+.order-meta { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-bottom: 16px; color: var(--muted); font-size: 0.9rem; }
+.status-chip { padding: 3px 12px; border-radius: 999px; background: var(--purple-light); color: var(--purple-dark); font-weight: 600; font-size: 0.82rem; }
+.order-section { padding: 16px 0; border-top: 1px solid var(--border); }
+.order-section h3 { font-size: 0.95rem; margin-bottom: 8px; }
+.order-section p { color: var(--muted); font-size: 0.92rem; }
+.order-section .mini-items { max-height: none; }
+.order-dialog-scroll { max-height: min(70vh, 640px); overflow-y: auto; }
+
+@media (max-width: 560px) {
+  .panel { padding: 20px; }
+  .field-grid { grid-template-columns: minmax(0, 1fr); }
+  .confirmation { padding: 36px 20px; }
+}

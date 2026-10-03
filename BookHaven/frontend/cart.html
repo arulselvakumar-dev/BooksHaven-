@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Your Cart | BookHaven</title>
+  <meta name="description" content="Review the books in your BookHaven cart before checkout.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/cart.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- BookHaven header: replace this block with your existing header markup if it differs -->
+  <header class="bh-header">
+    <div class="bh-header__inner">
+      <a href="index.html" class="bh-logo" aria-label="BookHaven home">
+        <svg class="bh-logo__icon" viewBox="0 0 32 32" width="32" height="32" aria-hidden="true">
+          <rect width="32" height="32" rx="9" fill="#7028DF"/>
+          <path d="M9 9.5c2.6-.7 5.3-.4 7 1.2 1.7-1.6 4.4-1.9 7-1.2v12.8c-2.6-.7-5.3-.4-7 1.2-1.7-1.6-4.4-1.9-7-1.2V9.5z" fill="none" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"/>
+          <path d="M16 10.7v12.8" stroke="#fff" stroke-width="1.8"/>
+        </svg>
+        <span class="bh-logo__text">BookHaven</span>
+      </a>
+
+      <nav class="bh-nav" id="mainNav" aria-label="Main navigation">
+        <a href="index.html" class="bh-nav__link">Home</a>
+        <a href="book.html" class="bh-nav__link">Books</a>
+        <a href="book.html#categories" class="bh-nav__link">Categories</a>
+        <a href="index.html#about" class="bh-nav__link">About</a>
+      </nav>
+
+      <div class="bh-actions">
+        <button type="button" class="bh-icon-btn" id="searchToggle" aria-label="Search books" aria-expanded="false" aria-controls="searchBar">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        </button>
+        <button type="button" class="bh-icon-btn" id="wishlistBtn" aria-label="Wishlist">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-7.5-10.3A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 7.5 2.6c0 5.7-7.5 10.3-7.5 10.3z"/></svg>
+          <span class="bh-badge" data-wishlist-count hidden>0</span>
+        </button>
+        <a href="cart.html" class="bh-icon-btn is-active" aria-label="Cart" aria-current="page">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h2.2l2.3 11h10.2l2-8H6.3"/><circle cx="9" cy="19.5" r="1.3"/><circle cx="17" cy="19.5" r="1.3"/></svg>
+          <span class="bh-badge" data-cart-count hidden>0</span>
+        </a>
+        <a href="login.html" class="btn btn-primary bh-login">Login</a>
+        <button type="button" class="bh-icon-btn bh-menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mainNav">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </div>
+    <form class="bh-searchbar" id="searchBar" role="search" hidden>
+      <input type="search" id="searchInput" placeholder="Search by title, author or category" aria-label="Search books" maxlength="60" autocomplete="off">
+      <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+  </header>
+
+  <main id="main" class="page">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="index.html">Home</a>
+        <span aria-hidden="true">&gt;</span>
+        <span aria-current="page">Cart</span>
+      </nav>
+
+      <div class="page-head">
+        <h1 class="page-title">Your Shopping Cart</h1>
+        <p class="page-subtitle">Review your selected books before checkout.</p>
+      </div>
+
+      <!-- Loading skeleton -->
+      <div id="cartLoading" class="cart-layout" aria-busy="true">
+        <p class="sr-only" role="status">Loading your cart...</p>
+        <div class="cart-main" aria-hidden="true">
+          <div class="skeleton-card"><div class="skeleton skeleton--img"></div><div class="skeleton-lines"><div class="skeleton"></div><div class="skeleton skeleton--short"></div><div class="skeleton skeleton--tiny"></div></div></div>
+          <div class="skeleton-card"><div class="skeleton skeleton--img"></div><div class="skeleton-lines"><div class="skeleton"></div><div class="skeleton skeleton--short"></div><div class="skeleton skeleton--tiny"></div></div></div>
+        </div>
+        <div class="summary" aria-hidden="true"><div class="skeleton skeleton--title"></div><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton skeleton--button"></div></div>
+      </div>
+
+      <!-- Error -->
+      <section id="cartError" class="state-card" role="alert" hidden>
+        <h2 class="state-card__title">We couldn't load your cart</h2>
+        <p id="cartErrorMsg" class="state-card__text"></p>
+        <button type="button" id="cartRetry" class="btn btn-primary">Try again</button>
+      </section>
+
+      <!-- Empty -->
+      <section id="cartEmpty" class="state-card" hidden>
+        <div class="state-card__icon" aria-hidden="true">🛒</div>
+        <h2 class="state-card__title">Your cart is empty</h2>
+        <p class="state-card__text">Looks like you haven't added any books yet.</p>
+        <a href="book.html" class="btn btn-primary">Explore Books</a>
+      </section>
+
+      <!-- Cart -->
+      <div id="cartContent" class="cart-layout" hidden>
+        <section class="cart-main" aria-labelledby="cartItemsHeading">
+          <div class="shipping-banner" id="shippingBanner">
+            <p id="shippingText" class="shipping-banner__text"></p>
+            <div class="progress" role="progressbar" aria-label="Progress towards free shipping" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="shippingProgress">
+              <div class="progress__fill" id="shippingFill"></div>
+            </div>
+          </div>
+
+          <div class="cart-list-head">
+            <h2 id="cartItemsHeading" class="section-title">Cart items (<span id="cartItemCount">0</span>)</h2>
+            <button type="button" id="clearCartBtn" class="link-btn link-btn--danger">Clear cart</button>
+          </div>
+
+          <ul id="cartItems" class="cart-items"></ul>
+        </section>
+
+        <aside class="summary" aria-labelledby="summaryHeading">
+          <h2 id="summaryHeading" class="summary__title">Order Summary</h2>
+
+          <div class="coupon">
+            <p class="coupon__label" id="couponLabel">Have a coupon?</p>
+            <form id="couponForm" class="coupon__form" novalidate>
+              <input id="couponInput" class="input" type="text" placeholder="Enter coupon code" maxlength="20" autocomplete="off" autocapitalize="characters" aria-labelledby="couponLabel">
+              <button type="submit" id="couponApplyBtn" class="btn btn-outline">Apply</button>
+            </form>
+            <div id="couponApplied" class="coupon__applied" hidden>
+              <span><strong id="couponAppliedCode"></strong> <span id="couponAppliedText"></span></span>
+              <button type="button" id="couponRemoveBtn" class="link-btn link-btn--danger">Remove</button>
+            </div>
+            <p id="couponMessage" class="coupon__message" role="alert" hidden></p>
+            <div id="couponChips" class="coupon__chips" hidden></div>
+          </div>
+
+          <dl class="summary__rows">
+            <div class="summary__row"><dt>Subtotal</dt><dd id="sumSubtotal">₹0</dd></div>
+            <div class="summary__row"><dt>Discount</dt><dd id="sumDiscount">₹0</dd></div>
+            <div class="summary__row"><dt>Shipping</dt><dd id="sumShipping">₹0</dd></div>
+            <div class="summary__row"><dt id="sumTaxLabel">Tax</dt><dd id="sumTax">₹0</dd></div>
+            <div class="summary__row summary__row--total"><dt>Total</dt><dd id="sumTotal">₹0</dd></div>
+          </dl>
+          <p id="sumSavings" class="summary__savings" hidden></p>
+
+          <button type="button" id="checkoutBtn" class="btn btn-primary btn-block btn-lg">Proceed to Checkout</button>
+          <a href="book.html" class="btn btn-outline btn-block">Continue Shopping</a>
+          <p class="summary__note">Prices, stock and coupons are re-checked securely before you pay.</p>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <!-- Confirmation dialog -->
+  <dialog id="confirmDialog" class="dialog" aria-labelledby="confirmTitle">
+    <h2 id="confirmTitle" class="dialog__title">Remove this book from your cart?</h2>
+    <p id="confirmSub" class="muted"></p>
+    <div class="dialog__actions">
+      <button type="button" id="confirmCancel" class="btn btn-outline">Cancel</button>
+      <button type="button" id="confirmOk" class="btn btn-danger">Remove</button>
+    </div>
+  </dialog>
+
+  <div id="toastRegion" class="toast-region" aria-live="polite"></div>
+
+  <script src="js/cart-api.js"></script>
+  <script src="js/cart.js"></script>
+</body>
+</html>

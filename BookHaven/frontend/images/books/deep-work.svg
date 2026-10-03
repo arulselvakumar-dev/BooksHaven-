@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 600" role="img" aria-label="Deep Work by Cal Newport">
+<rect width="400" height="600" fill="#1E1B4B"/>
+<rect x="24" y="24" width="352" height="552" rx="6" fill="none" stroke="#DDD6FE" stroke-opacity=".35" stroke-width="2"/>
+<rect x="0" y="0" width="22" height="600" fill="#000" fill-opacity=".18"/>
+<text x="200" y="190" text-anchor="middle" font-family="Georgia, serif" font-size="40" font-weight="700" fill="#DDD6FE">Deep Work</text>
+<line x1="140" y1="246" x2="260" y2="246" stroke="#DDD6FE" stroke-opacity=".6" stroke-width="2"/>
+<text x="200" y="286" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" fill="#DDD6FE" fill-opacity=".9">Cal Newport</text>
+<text x="200" y="548" text-anchor="middle" font-family="Georgia, serif" font-size="16" fill="#DDD6FE" fill-opacity=".6">BookHaven</text>
+</svg>
