@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore Our Books | BookHaven</title>
+    
+    <!-- Google Fonts: Inter & Playfair Display -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="books.css">
+
+    <!-- Embedded Embedded CSS Stylesheet -->
+    
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="container nav-container">
+            <!-- Brand Logo -->
+            <a href="#" class="logo">
+                <div class="logo-icon">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+                </div>
+                <span>BookHaven</span>
+            </a>
+
+            <!-- Navigation Links -->
+            <ul class="nav-links">
+                <li>
+                    <a class="nav-link" href="index.html">
+                       Home
+                    </a>
+                </li>
+                <li><a href="#" class="nav-link active">Books</a></li>
+                <li><a href="#" class="nav-link">Categories</a></li>
+                <li><a href="#" class="nav-link">About</a></li>
+            </ul>
+
+            <!-- Right Nav Actions -->
+            <div class="nav-actions">
+                <button class="icon-btn" title="Search Toggle" id="navSearchTrigger">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                </button>
+                <button class="icon-btn" title="Wishlist">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+                    <span class="badge" id="wishlistBadge">0</span>
+                </button>
+                <button class="icon-btn" title="Cart">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+                    <span class="badge" id="cartBadge">3</span>
+                </button>
+                <button class="btn-login">Log In</button>
+                <div class="hamburger" id="hamburgerBtn" title="Toggle Navigation">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Drawer Menu -->
+        <div class="mobile-nav-drawer" id="mobileNavDrawer">
+            <a href="#" class="nav-link">Home</a>
+            <a href="#" class="nav-link active">Books</a>
+            <a href="#" class="nav-link">Categories</a>
+            <a href="#" class="nav-link">About</a>
+            <button class="btn-login" style="margin-top: 1rem; text-align: center;">Log In</button>
+        </div>
+    </header>
+
+    <section class="page-header">
+        <div class="container">
+            <nav class="breadcrumbs">
+                <a href="#">Home</a>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+                <span class="current">Books</span>
+            </nav>
+            <h1 class="header-title">Explore Our Books</h1>
+            <p class="header-subtitle">Discover books across different genres, topics, and interests with our curated collection.</p>
+        </div>
+    </section>
+
+    <section class="search-filter-section">
+        <div class="container">
+            <!-- Search Bar -->
+            <div class="search-bar-wrapper">
+                <svg class="search-icon-inside" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                <input type="text" id="searchInput" class="search-input" placeholder="Search by title, author, category or ISBN...">
+                <button id="searchClearBtn" class="search-clear-btn" title="Clear Search">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                </button>
+            </div>
+
+            <!-- Category Pills Bar -->
+            <div class="categories-pill-wrapper" id="categoryPillContainer">
+                <button class="category-pill active" data-category="All">All Books</button>
+                <button class="category-pill" data-category="Fiction">Fiction</button>
+                <button class="category-pill" data-category="Technology">Technology</button>
+                <button class="category-pill" data-category="Business">Business</button>
+                <button class="category-pill" data-category="Self Help">Self Help</button>
+                <button class="category-pill" data-category="Programming">Programming</button>
+                <button class="category-pill" data-category="Finance">Finance</button>
+                <button class="category-pill" data-category="Biography">Biography</button>
+                <button class="category-pill" data-category="Science">Science</button>
+                <button class="category-pill" data-category="History">History</button>
+            </div>
+        </div>
+    </section>
+
+    <main class="container">
+        <!-- Mobile Filter Bar Toggle -->
+        <div class="mobile-filter-bar">
+            <span style="font-weight: 600; font-size: 0.9rem;">Filters & Refinements</span>
+            <button class="btn-mobile-filter" id="mobileFilterBtn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"/></svg>
+                Filter Options
+            </button>
+        </div>
+
+        <div class="catalog-layout">
+            <!-- Sidebar Filters -->
+            <aside class="filter-sidebar" id="filterSidebar">
+                <div class="sidebar-header">
+                    <div class="sidebar-title">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"/></svg>
+                        Filters
+                    </div>
+                    <button class="btn-clear-all" id="clearFiltersBtn">Clear All</button>
+                </div>
+
+                <!-- Category Filter Group -->
+                <div class="filter-group">
+                    <div class="filter-group-title">Category</div>
+                    <ul class="filter-options-list" id="sidebarCategoryList">
+                        <li><label class="filter-item"><input type="radio" name="category" value="All" checked> All Categories</label></li>
+                        <li><label class="filter-item"><input type="radio" name="category" value="Fiction"> Fiction</label></li>
+                        <li><label class="filter-item"><input type="radio" name="category" value="Technology"> Technology</label></li>
+                        <li><label class="filter-item"><input type="radio" name="category" value="Business"> Business</label></li>
+                        <li><label class="filter-item"><input type="radio" name="category" value="Self Help"> Self Help</label></li>
+                        <li><label class="filter-item"><input type="radio" name="category" value="Programming"> Programming</label></li>
+                        <li><label class="filter-item"><input type="radio" name="category" value="Finance"> Finance</label></li>
+                        <li><label class="filter-item"><input type="radio" name="category" value="Biography"> Biography</label></li>
+                    </ul>
+                </div>
+
+                <!-- Price Filter Group -->
+                <div class="filter-group">
+                    <div class="filter-group-title">Price Range</div>
+                    <ul class="filter-options-list">
+                        <li><label class="filter-item"><input type="radio" name="price" value="all" checked> All Prices</label></li>
+                        <li><label class="filter-item"><input type="radio" name="price" value="under-300"> Under ₹300</label></li>
+                        <li><label class="filter-item"><input type="radio" name="price" value="300-500"> ₹300 – ₹500</label></li>
+                        <li><label class="filter-item"><input type="radio" name="price" value="500-800"> ₹500 – ₹800</label></li>
+                        <li><label class="filter-item"><input type="radio" name="price" value="above-800"> Above ₹800</label></li>
+                    </ul>
+                </div>
+
+                <!-- Rating Filter Group -->
+                <div class="filter-group">
+                    <div class="filter-group-title">Rating</div>
+                    <ul class="filter-options-list">
+                        <li><label class="filter-item"><input type="radio" name="rating" value="0" checked> Any Rating</label></li>
+                        <li><label class="filter-item"><input type="radio" name="rating" value="4"> <span class="star-rating">★★★★☆</span> 4★ & above</label></li>
+                        <li><label class="filter-item"><input type="radio" name="rating" value="3"> <span class="star-rating">★★★☆☆</span> 3★ & above</label></li>
+                        <li><label class="filter-item"><input type="radio" name="rating" value="2"> <span class="star-rating">★★☆☆☆</span> 2★ & above</label></li>
+                    </ul>
+                </div>
+
+                <!-- Availability Filter Group -->
+                <div class="filter-group">
+                    <div class="filter-group-title">Availability</div>
+                    <ul class="filter-options-list">
+                        <li><label class="filter-item"><input type="radio" name="availability" value="all" checked> All Items</label></li>
+                        <li><label class="filter-item"><input type="radio" name="availability" value="in-stock"> In Stock Only</label></li>
+                        <li><label class="filter-item"><input type="radio" name="availability" value="out-of-stock"> Out of Stock</label></li>
+                    </ul>
+                </div>
+            </aside>
+
+            <!-- Main Results Column -->
+            <section class="catalog-main">
+                <!-- Sorting & Info Bar -->
+                <div class="results-bar">
+                    <div class="results-count" id="resultsCount">
+                        Showing <strong>1–12</strong> of <strong>16</strong> books
+                    </div>
+                    <div class="sort-wrapper">
+                        <label for="sortSelect" class="sort-label">Sort by:</label>
+                        <select id="sortSelect" class="sort-select">
+                            <option value="featured">Featured</option>
+                            <option value="price-low">Price: Low to High</option>
+                            <option value="price-high">Price: High to Low</option>
+                            <option value="rating">Highest Rated</option>
+                            <option value="newest">Newest Arrivals</option>
+                            <option value="popular">Most Popular</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Book Cards Grid -->
+                <div class="book-grid" id="bookGrid">
+                    <!-- Cards dynamically injected via JS -->
+                </div>
+
+                <!-- No Results State -->
+                <div class="no-results" id="noResultsState">
+                    <div class="no-results-icon">📚</div>
+                    <h3 class="no-results-title">No books found</h3>
+                    <p class="no-results-desc">We couldn't find any books matching your selected filters or search terms.</p>
+                    <button class="btn-reset-filters" id="resetFiltersBtn">Clear All Filters</button>
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination-wrapper" id="paginationWrapper">
+                    <!-- Pagination buttons rendered dynamically -->
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Modal for "View Details" preview trigger -->
+    <div class="modal-overlay" id="detailsModal">
+        <div class="modal-card">
+            <button class="modal-close" id="modalCloseBtn">&times;</button>
+            <div style="font-size: 3rem; margin-bottom: 0.5rem;">📖</div>
+            <h3 class="font-heading" style="font-size: 1.5rem; margin-bottom: 0.5rem;" id="modalBookTitle">Book Title</h3>
+            <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Book details page will be connected soon.</p>
+            <button class="btn-reset-filters" onclick="document.getElementById('detailsModal').classList.remove('open')">Close Preview</button>
+        </div>
+    </div>
+
+    <!-- Toast Notification Overlay Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Embedded Embedded JavaScript Module -->
+    <script>
+        // Realistic sample dataset (Modular array structure ready for fetch('/api/books'))
+        const books = [
+            {
+                id: 1,
+                title: "The Alchemist",
+                author: "Paulo Coelho",
+                category: "Fiction",
+                price: 299,
+                originalPrice: 499,
+                rating: 4.9,
+                reviews: 4210,
+                availability: "in-stock",
+                isbn: "978-0062315007",
+                badge: "Bestseller",
+                image: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 2,
+                title: "Atomic Habits",
+                author: "James Clear",
+                category: "Self Help",
+                price: 499,
+                originalPrice: 799,
+                rating: 4.8,
+                reviews: 8920,
+                availability: "in-stock",
+                isbn: "978-0735211292",
+                badge: "Bestseller",
+                image: "https://images.unsplash.com/photo-1589829085413-56de8ae18c73?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 3,
+                title: "Clean Code",
+                author: "Robert C. Martin",
+                category: "Programming",
+                price: 799,
+                originalPrice: 999,
+                rating: 4.7,
+                reviews: 2340,
+                availability: "in-stock",
+                isbn: "978-0132350884",
+                badge: "Sale",
+                image: "https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 4,
+                title: "The Psychology of Money",
+                author: "Morgan Housel",
+                category: "Finance",
+                price: 399,
+                originalPrice: 599,
+                rating: 4.9,
+                reviews: 5610,
+                availability: "in-stock",
+                isbn: "978-0857197689",
+                badge: "Bestseller",
+                image: "https://images.unsplash.com/photo-1553729459-efe14ef6055d?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 5,
+                title: "Python Crash Course",
+                author: "Eric Matthes",
+                category: "Technology",
+                price: 699,
+                originalPrice: 899,
+                rating: 4.8,
+                reviews: 1840,
+                availability: "in-stock",
+                isbn: "978-1593279288",
+                badge: "New",
+                image: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 6,
+                title: "Rich Dad Poor Dad",
+                author: "Robert Kiyosaki",
+                category: "Business",
+                price: 349,
+                originalPrice: 499,
+                rating: 4.7,
+                reviews: 7320,
+                availability: "in-stock",
+                isbn: "978-1612680194",
+                badge: "Bestseller",
+                image: "https://images.unsplash.com/photo-1543002588-bfa74002ed7e?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 7,
+                title: "Deep Work",
+                author: "Cal Newport",
+                category: "Self Help",
+                price: 450,
+                originalPrice: 650,
+                rating: 4.8,
+                reviews: 3100,
+                availability: "in-stock",
+                isbn: "978-1455586691",
+                badge: null,
+                image: "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 8,
+                title: "Ikigai",
+                author: "Hector Garcia",
+                category: "Self Help",
+                price: 299,
+                originalPrice: 450,
+                rating: 4.6,
+                reviews: 6400,
+                availability: "in-stock",
+                isbn: "978-0143130727",
+                badge: "Sale",
+                image: "https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 9,
+                title: "The Pragmatic Programmer",
+                author: "Andrew Hunt",
+                category: "Programming",
+                price: 850,
+                originalPrice: 1100,
+                rating: 4.8,
+                reviews: 1950,
+                availability: "in-stock",
+                isbn: "978-0135957059",
+                badge: "Bestseller",
+                image: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 10,
+                title: "Steve Jobs",
+                author: "Walter Isaacson",
+                category: "Biography",
+                price: 599,
+                originalPrice: 899,
+                rating: 4.7,
+                reviews: 2890,
+                availability: "out-of-stock",
+                isbn: "978-1451648539",
+                badge: null,
+                image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 11,
+                title: "Sapiens",
+                author: "Yuval Noah Harari",
+                category: "History",
+                price: 550,
+                originalPrice: 799,
+                rating: 4.8,
+                reviews: 9120,
+                availability: "in-stock",
+                isbn: "978-0062316097",
+                badge: "Bestseller",
+                image: "https://images.unsplash.com/photo-1461360370896-922624d12aa1?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 12,
+                title: "A Brief History of Time",
+                author: "Stephen Hawking",
+                category: "Science",
+                price: 450,
+                originalPrice: 600,
+                rating: 4.7,
+                reviews: 4500,
+                availability: "in-stock",
+                isbn: "978-0553380163",
+                badge: null,
+                image: "https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 13,
+                title: "Design Patterns",
+                author: "Erich Gamma",
+                category: "Programming",
+                price: 899,
+                originalPrice: 1200,
+                rating: 4.6,
+                reviews: 1420,
+                availability: "in-stock",
+                isbn: "978-0201633610",
+                badge: null,
+                image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 14,
+                title: "Thinking, Fast and Slow",
+                author: "Daniel Kahneman",
+                category: "Self Help",
+                price: 520,
+                originalPrice: 750,
+                rating: 4.7,
+                reviews: 5800,
+                availability: "in-stock",
+                isbn: "978-0374533557",
+                badge: "New",
+                image: "https://images.unsplash.com/photo-1457369804613-52c61a468e7d?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 15,
+                title: "The Intelligent Investor",
+                author: "Benjamin Graham",
+                category: "Finance",
+                price: 650,
+                originalPrice: 850,
+                rating: 4.8,
+                reviews: 6200,
+                availability: "in-stock",
+                isbn: "978-0060555665",
+                badge: "Bestseller",
+                image: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 16,
+                title: "Zero to One",
+                author: "Peter Thiel",
+                category: "Business",
+                price: 399,
+                originalPrice: 550,
+                rating: 4.7,
+                reviews: 4100,
+                availability: "in-stock",
+                isbn: "978-0804139298",
+                badge: "Sale",
+                image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=600&q=80"
+            }
+        ];
+
+        let state = {
+            searchQuery: "",
+            selectedCategory: "All",
+            selectedPrice: "all",
+            selectedRating: 0,
+            selectedAvailability: "all",
+            sortBy: "featured",
+            currentPage: 1,
+            itemsPerPage: 8,
+            cartCount: 3,
+            wishlist: new Set()
+        };
+
+        const bookGrid = document.getElementById("bookGrid");
+        const searchInput = document.getElementById("searchInput");
+        const searchClearBtn = document.getElementById("searchClearBtn");
+        const categoryPillContainer = document.getElementById("categoryPillContainer");
+        const resultsCount = document.getElementById("resultsCount");
+        const sortSelect = document.getElementById("sortSelect");
+        const noResultsState = document.getElementById("noResultsState");
+        const paginationWrapper = document.getElementById("paginationWrapper");
+        const clearFiltersBtn = document.getElementById("clearFiltersBtn");
+        const resetFiltersBtn = document.getElementById("resetFiltersBtn");
+        const cartBadge = document.getElementById("cartBadge");
+        const wishlistBadge = document.getElementById("wishlistBadge");
+        const mobileFilterBtn = document.getElementById("mobileFilterBtn");
+        const filterSidebar = document.getElementById("filterSidebar");
+        const hamburgerBtn = document.getElementById("hamburgerBtn");
+        const mobileNavDrawer = document.getElementById("mobileNavDrawer");
+
+        function filterBooks() {
+            return books.filter(book => {
+                // 1. Search Query Filter
+                const q = state.searchQuery.toLowerCase().trim();
+                const matchesSearch = !q || 
+                    book.title.toLowerCase().includes(q) ||
+                    book.author.toLowerCase().includes(q) ||
+                    book.category.toLowerCase().includes(q) ||
+                    book.isbn.toLowerCase().includes(q);
+
+                // 2. Category Filter
+                const matchesCategory = state.selectedCategory === "All" || 
+                    book.category.toLowerCase() === state.selectedCategory.toLowerCase();
+
+                // 3. Price Range Filter
+                let matchesPrice = true;
+                if (state.selectedPrice === "under-300") matchesPrice = book.price < 300;
+                else if (state.selectedPrice === "300-500") matchesPrice = book.price >= 300 && book.price <= 500;
+                else if (state.selectedPrice === "500-800") matchesPrice = book.price >= 500 && book.price <= 800;
+                else if (state.selectedPrice === "above-800") matchesPrice = book.price > 800;
+
+                // 4. Rating Filter
+                const matchesRating = book.rating >= state.selectedRating;
+
+                // 5. Availability Filter
+                let matchesAvailability = true;
+                if (state.selectedAvailability === "in-stock") matchesAvailability = book.availability === "in-stock";
+                else if (state.selectedAvailability === "out-of-stock") matchesAvailability = book.availability === "out-of-stock";
+
+                return matchesSearch && matchesCategory && matchesPrice && matchesRating && matchesAvailability;
+            });
+        }
+
+        function sortBooksData(filteredList) {
+            const list = [...filteredList];
+            switch (state.sortBy) {
+                case "price-low":
+                    return list.sort((a, b) => a.price - b.price);
+                case "price-high":
+                    return list.sort((a, b) => b.price - a.price);
+                case "rating":
+                    return list.sort((a, b) => b.rating - a.rating);
+                case "newest":
+                    return list.sort((a, b) => b.id - a.id);
+                case "popular":
+                    return list.sort((a, b) => b.reviews - a.reviews);
+                case "featured":
+                default:
+                    return list;
+            }
+        }
+
+        function renderBooks() {
+            const filtered = filterBooks();
+            const sorted = sortBooksData(filtered);
+
+            // Calculate pagination bounds
+            const totalItems = sorted.length;
+            const totalPages = Math.ceil(totalItems / state.itemsPerPage) || 1;
+            
+            if (state.currentPage > totalPages) {
+                state.currentPage = 1;
+            }
+
+            const startIndex = (state.currentPage - 1) * state.itemsPerPage;
+            const endIndex = Math.min(startIndex + state.itemsPerPage, totalItems);
+            const paginatedBooks = sorted.slice(startIndex, endIndex);
+
+            // Update Count Bar
+            if (totalItems > 0) {
+                resultsCount.innerHTML = `Showing <strong>${startIndex + 1}–${endIndex}</strong> of <strong>${totalItems}</strong> books`;
+                noResultsState.style.display = "none";
+                bookGrid.style.display = "grid";
+            } else {
+                resultsCount.innerHTML = `Showing <strong>0</strong> books`;
+                bookGrid.style.display = "none";
+                noResultsState.style.display = "flex";
+            }
+
+            // Build Book Card Markup
+            bookGrid.innerHTML = paginatedBooks.map(book => {
+                const discountPct = book.originalPrice ? Math.round(((book.originalPrice - book.price) / book.originalPrice) * 100) : 0;
+                const isWishlisted = state.wishlist.has(book.id);
+                
+                let badgeMarkup = "";
+                if (book.badge === "Bestseller") badgeMarkup = `<span class="book-badge badge-bestseller">Bestseller</span>`;
+                else if (book.badge === "New") badgeMarkup = `<span class="book-badge badge-new">New</span>`;
+                else if (book.badge === "Sale" || discountPct > 0) badgeMarkup = `<span class="book-badge badge-sale">${discountPct}% OFF</span>`;
+
+                return `
+                    <article class="book-card">
+                        <div class="book-cover-container">
+                            ${badgeMarkup}
+                            <button class="wishlist-btn ${isWishlisted ? 'active' : ''}" onclick="toggleWishlist(${book.id})" title="Add to Wishlist">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="${isWishlisted ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+                            </button>
+                            <img class="book-cover-img" src="${book.image}" alt="${book.title} cover" loading="lazy">
+                        </div>
+                        <div class="book-info">
+                            <span class="book-category">${book.category}</span>
+                            <h3 class="book-title" title="${book.title}">${book.title}</h3>
+                            <div class="book-author">by ${book.author}</div>
+                            <div class="book-rating">
+                                <span class="rating-stars">★</span>
+                                <span class="rating-val">${book.rating.toFixed(1)}</span>
+                                <span class="rating-count">(${book.reviews.toLocaleString()})</span>
+                            </div>
+                            <div class="book-price-row">
+                                <span class="price-current">₹${book.price}</span>
+                                ${book.originalPrice ? `<span class="price-original">₹${book.originalPrice}</span>` : ''}
+                                ${discountPct > 0 ? `<span class="price-discount">${discountPct}% OFF</span>` : ''}
+                            </div>
+                            <div class="book-actions">
+                                <button class="btn-add-cart" id="cartBtn-${book.id}" onclick="addToCart(${book.id})">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+                                    Add to Cart
+                                </button>
+                                <button class="btn-view-details" onclick="openDetailsModal('${book.title.replace(/'/g, "\\'")}', ${book.id})">
+                                    View Details
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+                `;
+            }).join('');
+
+            renderPagination(totalPages);
+        }
+
+        function renderPagination(totalPages) {
+            if (totalPages <= 1) {
+                paginationWrapper.innerHTML = "";
+                return;
+            }
+
+            let html = `
+                <button class="page-btn" ${state.currentPage === 1 ? 'disabled' : ''} onclick="changePage(${state.currentPage - 1})">
+                    &leftarrow; Prev
+                </button>
+            `;
+
+            for (let i = 1; i <= totalPages; i++) {
+                html += `
+                    <button class="page-btn ${i === state.currentPage ? 'active' : ''}" onclick="changePage(${i})">
+                        ${i}
+                    </button>
+                `;
+            }
+
+            html += `
+                <button class="page-btn" ${state.currentPage === totalPages ? 'disabled' : ''} onclick="changePage(${state.currentPage + 1})">
+                    Next &rightarrow;
+                </button>
+            `;
+
+            paginationWrapper.innerHTML = html;
+        }
+
+        function changePage(page) {
+            state.currentPage = page;
+            renderBooks();
+            window.scrollTo({ top: 300, behavior: 'smooth' });
+        }
+
+        function updateCartCount() {
+            state.cartCount++;
+            cartBadge.textContent = state.cartCount;
+            cartBadge.classList.add("bounce");
+            setTimeout(() => cartBadge.classList.remove("bounce"), 300);
+        }
+
+        function addToCart(bookId) {
+            updateCartCount();
+            showToast("Book added to cart successfully!");
+
+            const btn = document.getElementById(`cartBtn-${bookId}`);
+            if (btn) {
+                const originalText = btn.innerHTML;
+                btn.classList.add("added");
+                btn.innerHTML = `Added ✓`;
+                setTimeout(() => {
+                    btn.classList.remove("added");
+                    btn.innerHTML = originalText;
+                }, 1800);
+            }
+        }
+
+        function toggleWishlist(bookId) {
+            if (state.wishlist.has(bookId)) {
+                state.wishlist.delete(bookId);
+                showToast("Removed from Wishlist");
+            } else {
+                state.wishlist.add(bookId);
+                showToast("Added to Wishlist!");
+            }
+            wishlistBadge.textContent = state.wishlist.size;
+            renderBooks();
+        }
+
+        function showToast(message) {
+            const container = document.getElementById("toastContainer");
+            const toast = document.createElement("div");
+            toast.className = "toast";
+            toast.innerHTML = `
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5"><path d="22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                <span>${message}</span>
+            `;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = "0";
+                toast.style.transform = "translateY(20px)";
+                toast.style.transition = "all 0.3s ease";
+                setTimeout(() => toast.remove(), 300);
+            }, 2500);
+        }
+
+        function openDetailsModal(title, id) {
+            document.getElementById("modalBookTitle").textContent = title;
+            document.getElementById("detailsModal").classList.add("open");
+        }
+
+        function clearFilters() {
+            state.searchQuery = "";
+            state.selectedCategory = "All";
+            state.selectedPrice = "all";
+            state.selectedRating = 0;
+            state.selectedAvailability = "all";
+            state.currentPage = 1;
+
+            searchInput.value = "";
+            searchClearBtn.classList.remove("active");
+
+            // Reset Pill Buttons
+            document.querySelectorAll(".category-pill").forEach(pill => {
+                pill.classList.toggle("active", pill.dataset.category === "All");
+            });
+
+            // Reset Radio Inputs
+            document.querySelectorAll('input[type="radio"]').forEach(radio => {
+                if (radio.value === "All" || radio.value === "all" || radio.value === "0") {
+                    radio.checked = true;
+                } else {
+                    radio.checked = false;
+                }
+            });
+
+            renderBooks();
+            showToast("Filters reset to default.");
+        }
+
+        // Attach Search input handlers
+        searchInput.addEventListener("input", (e) => {
+            state.searchQuery = e.target.value;
+            searchClearBtn.classList.toggle("active", state.searchQuery.length > 0);
+            state.currentPage = 1;
+            renderBooks();
+        });
+
+        searchClearBtn.addEventListener("click", () => {
+            searchInput.value = "";
+            state.searchQuery = "";
+            searchClearBtn.classList.remove("active");
+            renderBooks();
+        });
+
+        // Category Pills
+        categoryPillContainer.addEventListener("click", (e) => {
+            if (e.target.classList.contains("category-pill")) {
+                document.querySelectorAll(".category-pill").forEach(p => p.classList.remove("active"));
+                e.target.classList.add("active");
+
+                const category = e.target.dataset.category;
+                state.selectedCategory = category;
+
+                // Sync sidebar category radio button
+                const matchingRadio = document.querySelector(`input[name="category"][value="${category}"]`);
+                if (matchingRadio) matchingRadio.checked = true;
+
+                state.currentPage = 1;
+                renderBooks();
+            }
+        });
+
+        // Sidebar Radio Change Handlers
+        filterSidebar.addEventListener("change", (e) => {
+            if (e.target.name === "category") {
+                state.selectedCategory = e.target.value;
+                // Sync Pills
+                document.querySelectorAll(".category-pill").forEach(pill => {
+                    pill.classList.toggle("active", pill.dataset.category === e.target.value);
+                });
+            } else if (e.target.name === "price") {
+                state.selectedPrice = e.target.value;
+            } else if (e.target.name === "rating") {
+                state.selectedRating = parseFloat(e.target.value);
+            } else if (e.target.name === "availability") {
+                state.selectedAvailability = e.target.value;
+            }
+
+            state.currentPage = 1;
+            renderBooks();
+        });
+
+        // Sort Select Handler
+        sortSelect.addEventListener("change", (e) => {
+            state.sortBy = e.target.value;
+            renderBooks();
+        });
+
+        // Clear Filter Buttons
+        clearFiltersBtn.addEventListener("click", clearFilters);
+        resetFiltersBtn.addEventListener("click", clearFilters);
+
+        // Mobile Filter & Navigation Controls
+        mobileFilterBtn.addEventListener("click", () => {
+            filterSidebar.classList.toggle("open");
+        });
+
+        hamburgerBtn.addEventListener("click", () => {
+            mobileNavDrawer.classList.toggle("open");
+        });
+
+        document.getElementById("modalCloseBtn").addEventListener("click", () => {
+            document.getElementById("detailsModal").classList.remove("open");
+        });
+
+        // Close sidebar drawer when clicking outside on small screens
+        document.addEventListener("click", (e) => {
+            if (window.innerWidth <= 992 && 
+                !filterSidebar.contains(e.target) && 
+                !mobileFilterBtn.contains(e.target) && 
+                filterSidebar.classList.contains("open")) {
+                filterSidebar.classList.remove("open");
+            }
+        });
+
+        // Initial Page Render
+        window.onload = function() {
+            renderBooks();
+        };
+    </script>
+</body>
+</html>
