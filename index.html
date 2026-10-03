@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BookHaven | Every Book Opens a New World</title>
+  <meta name="description" content="BookHaven is an online bookstore for curious readers. Discover fiction, technology, business and self-help books at great prices.">
+  <meta name="theme-color" content="#6D28D9">
+
+  <!-- Fonts: Playfair Display (headings) + Inter (UI/body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+  
+</head>
+
+<!--
+  =====================================================================
+  BookHaven - HOMEPAGE (index.html)
+  =====================================================================
+  TEAM INTEGRATION NOTES
+
+  Hooks for JavaScript (all prefixed with "js-" or an #id):
+    #nav-toggle, #primary-nav ........ mobile menu
+    #search-toggle, #search-panel .... search bar
+    #cart-link, #cart-count .......... cart icon + item count
+    #login-btn ....................... login button
+    .js-book-card .................... one per book (data-book-id, data-title,
+                                       data-author, data-category, data-price)
+    .js-add-to-cart .................. "Add to cart" button on a book card
+    .js-wishlist-toggle .............. heart button on a book card
+    #newsletter-form ................. newsletter signup
+
+  Placeholder links: every href="#" is a placeholder. Replace with the real
+  page URL (e.g. books.html, cart.html, login.html, book-details.html?id=...).
+
+  Custom events fired by script.js (listen on `document`):
+    bookhaven:add-to-cart ........... { bookId, title, price }  (cancelable)
+    bookhaven:wishlist-toggle ....... { bookId, title, active }
+    bookhaven:search ................ { query }
+    bookhaven:newsletter-subscribe .. { email }
+
+  Book data on this page is STATIC placeholder content. The cover art is
+  pure CSS so the page works without image files. To use real covers,
+  replace each .book-cover block with:
+    <img class="book-card__image" src="..." alt="Cover of TITLE">
+  =====================================================================
+-->
+
+<body>
+  
+
+  <!-- ===== SVG ICON SPRITE (reuse with <svg class="icon"><use href="#icon-name"></use></svg>) ===== -->
+  <svg class="svg-sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="icon-book-open" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></symbol>
+    <symbol id="icon-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></symbol>
+    <symbol id="icon-cart" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></symbol>
+    <symbol id="icon-menu" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></symbol>
+    <symbol id="icon-close" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></symbol>
+    <symbol id="icon-heart" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></symbol>
+    <symbol id="icon-star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></symbol>
+    <symbol id="icon-sparkle" viewBox="0 0 24 24"><path d="M12 2l2.2 7.8L22 12l-7.8 2.2L12 22l-2.2-7.8L2 12l7.8-2.2z"/></symbol>
+    <symbol id="icon-book" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></symbol>
+    <symbol id="icon-code" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></symbol>
+    <symbol id="icon-briefcase" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></symbol>
+    <symbol id="icon-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></symbol>
+    <symbol id="icon-truck" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></symbol>
+    <symbol id="icon-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></symbol>
+    <symbol id="icon-tag" viewBox="0 0 24 24"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></symbol>
+    <symbol id="icon-bookmark" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></symbol>
+    <symbol id="icon-facebook" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></symbol>
+    <symbol id="icon-instagram" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></symbol>
+    <symbol id="icon-twitter" viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></symbol>
+    <symbol id="icon-linkedin" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></symbol>
+  </svg>
+
+
+  <!-- =====================================================================
+       1. NAVIGATION BAR
+       ===================================================================== -->
+  <header class="site-header" id="site-header">
+    <div class="container header-inner">
+
+      <!-- Logo -->
+      <a class="logo" href="#home" aria-label="BookHaven home">
+        <span class="logo__mark">
+          <svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-book-open"></use></svg>
+        </span>
+        <span class="logo__text">BookHaven</span>
+      </a>
+
+      <!-- Primary navigation (becomes a dropdown panel on mobile) -->
+      <nav class="primary-nav" id="primary-nav" aria-label="Primary">
+        <ul class="nav-list">
+          <li><a class="nav-link is-active" href="#home" aria-current="location">Home</a></li>
+          <li>
+            <a class="nav-link" href="book.html">
+                Books
+            </a>
+        </li>
+          <li><a class="nav-link" href="#categories">Categories</a></li>
+          <li><a class="nav-link" href="#about">About</a></li>
+          <!-- Shown only inside the mobile menu -->
+          <li class="nav-list__login"><a class="btn btn--primary" href="#">Login</a></li>
+        </ul>
+      </nav>
+
+      <!-- Header actions -->
+      <div class="header-actions">
+        <button class="icon-btn" id="search-toggle" type="button" aria-expanded="false" aria-controls="search-panel" aria-label="Open search">
+          <svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-search"></use></svg>
+        </button>
+
+        <!-- TODO(team): replace href with the cart page URL -->
+        <a class="icon-btn cart-link" id="cart-link" href="#" aria-label="Shopping cart, 0 items">
+          <svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-cart"></use></svg>
+          <span class="cart-count" id="cart-count" aria-hidden="true">0</span>
+        </a>
+
+        <!-- TODO(team): replace href with the login page URL -->
+        <a class="btn btn--primary btn--sm header-login" id="login-btn" href="#">Login</a>
+
+        <button class="icon-btn nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Open menu">
+          <svg class="icon icon-menu" aria-hidden="true" focusable="false"><use href="#icon-menu"></use></svg>
+          <svg class="icon icon-close" aria-hidden="true" focusable="false"><use href="#icon-close"></use></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Search panel (opens below the header) -->
+    <div class="search-panel" id="search-panel" hidden>
+      <div class="container">
+        <form class="search-form" id="search-form" role="search" novalidate>
+          <label class="visually-hidden" for="search-input">Search books</label>
+          <div class="search-field">
+            <svg class="icon search-field__icon" aria-hidden="true" focusable="false"><use href="#icon-search"></use></svg>
+            <input class="search-field__input" id="search-input" name="q" type="search" placeholder="Search by title, author or category" autocomplete="off">
+            <button class="search-field__clear" id="search-clear" type="button" aria-label="Clear search" hidden>
+              <svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-close"></use></svg>
+            </button>
+          </div>
+          <button class="btn btn--primary" type="submit">Search</button>
+          <button class="btn btn--secondary" id="search-close" type="button">Close</button>
+        </form>
+        <p class="search-status" id="search-status" role="status" aria-live="polite"></p>
+      </div>
+    </div>
+  </header>
+
+
+  <main id="main">
+
+    <!-- =====================================================================
+         2. HERO SECTION
+         ===================================================================== -->
+    <section class="hero" id="home" aria-labelledby="hero-title">
+      <div class="container hero__inner">
+
+        <div class="hero__content">
+          <h1 class="hero__title" id="hero-title">Every Book Opens a New World</h1>
+          <p class="hero__lead">
+            Browse thousands of novels, tech guides, business classics and self-growth reads.
+            Find your next favorite book and have it at your door in days.
+          </p>
+
+          <div class="hero__actions">
+            <a class="btn btn--primary btn--lg" href="#books">Explore Books</a>
+            <a class="btn btn--secondary btn--lg" href="#categories">Browse Categories</a>
+          </div>
+
+          <dl class="hero-stats">
+            <div class="hero-stat">
+              <dt>Books</dt>
+              <dd>10K+</dd>
+            </div>
+            <div class="hero-stat">
+              <dt>Readers</dt>
+              <dd>5K+</dd>
+            </div>
+            <div class="hero-stat">
+              <dt>Rating</dt>
+              <dd>4.8/5</dd>
+            </div>
+          </dl>
+        </div>
+
+        <!-- Decorative book illustration (pure CSS, no image files) -->
+        <div class="hero-art" aria-hidden="true">
+          <div class="hero-art__blob"></div>
+          <div class="hero-art__ring"></div>
+          <div class="hero-art__dots"></div>
+          <div class="hero-art__floor"></div>
+
+          <svg class="icon icon--fill hero-art__sparkle hero-art__sparkle--1" focusable="false"><use href="#icon-sparkle"></use></svg>
+          <svg class="icon icon--fill hero-art__sparkle hero-art__sparkle--2" focusable="false"><use href="#icon-sparkle"></use></svg>
+          <svg class="icon icon--fill hero-art__sparkle hero-art__sparkle--3" focusable="false"><use href="#icon-sparkle"></use></svg>
+
+          <div class="hero-book hero-book--left">
+            <div class="book-cover book-cover--systems">
+              <span class="book-cover__title">Building Resilient Software</span>
+              <span class="book-cover__author">Daniel Okafor</span>
+            </div>
+          </div>
+          <div class="hero-book hero-book--center">
+            <div class="book-cover book-cover--lantern">
+              <span class="book-cover__title">The Lantern Keeper</span>
+              <span class="book-cover__author">Elena Marsh</span>
+            </div>
+          </div>
+          <div class="hero-book hero-book--right">
+            <div class="book-cover book-cover--habits">
+              <span class="book-cover__title">Small Habits, Big Shifts</span>
+              <span class="book-cover__author">Marcus Lee</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- =====================================================================
+         3. CATEGORIES SECTION
+         TODO(team): point each href to the Books page filtered by category,
+         e.g. books.html?category=fiction
+         ===================================================================== -->
+    <section class="section" id="categories" aria-labelledby="categories-title">
+      <div class="container">
+        <header class="section-head">
+          <div>
+            <h2 class="section-title" id="categories-title">Browse by category</h2>
+            <p class="section-lead">Pick a shelf and start exploring.</p>
+          </div>
+        </header>
+
+        <ul class="category-grid">
+          <li>
+            <a class="category-card js-category-card" href="#books" data-category="fiction">
+              <span class="category-card__icon"><svg class="icon icon--lg" aria-hidden="true" focusable="false"><use href="#icon-book"></use></svg></span>
+              <h3 class="category-card__name">Fiction</h3>
+              <p class="category-card__count">2,450 books</p>
+            </a>
+          </li>
+          <li>
+            <a class="category-card js-category-card" href="#books" data-category="technology">
+              <span class="category-card__icon"><svg class="icon icon--lg" aria-hidden="true" focusable="false"><use href="#icon-code"></use></svg></span>
+              <h3 class="category-card__name">Technology</h3>
+              <p class="category-card__count">1,820 books</p>
+            </a>
+          </li>
+          <li>
+            <a class="category-card js-category-card" href="#books" data-category="business">
+              <span class="category-card__icon"><svg class="icon icon--lg" aria-hidden="true" focusable="false"><use href="#icon-briefcase"></use></svg></span>
+              <h3 class="category-card__name">Business</h3>
+              <p class="category-card__count">1,360 books</p>
+            </a>
+          </li>
+          <li>
+            <a class="category-card js-category-card" href="#books" data-category="self-help">
+              <span class="category-card__icon"><svg class="icon icon--lg" aria-hidden="true" focusable="false"><use href="#icon-target"></use></svg></span>
+              <h3 class="category-card__name">Self Help</h3>
+              <p class="category-card__count">1,540 books</p>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+
+    <!-- =====================================================================
+         4. FEATURED BOOKS SECTION
+         Static placeholder data. Each <li> holds one .js-book-card.
+         ===================================================================== -->
+    <section class="section section--flush-top" id="books" aria-labelledby="books-title">
+      <div class="container">
+        <header class="section-head">
+          <div>
+            <h2 class="section-title" id="books-title">Featured books</h2>
+            <p class="section-lead">Hand-picked titles our readers are loving this month.</p>
+          </div>
+          <!-- TODO(team): link to the full Books page -->
+          <a class="link-strong" href="#">View all books</a>
+        </header>
+
+        <!-- Shown only while a search filter is active -->
+        <div class="filter-note" id="books-filter-note" hidden>
+          <p id="books-filter-text"></p>
+          <button class="btn btn--secondary btn--sm" id="books-filter-clear" type="button">Clear search</button>
+        </div>
+
+        <ul class="books-grid" id="featured-books">
+
+          <!-- Book 1 -->
+          <li>
+            <article class="book-card js-book-card" data-book-id="bk-001" data-title="The Lantern Keeper" data-author="Elena Marsh" data-category="Fiction" data-price="14.99">
+              <div class="book-card__media">
+                <div class="book-cover book-cover--lantern" aria-hidden="true">
+                  <span class="book-cover__title">The Lantern Keeper</span>
+                  <span class="book-cover__author">Elena Marsh</span>
+                </div>
+                <span class="badge badge--bestseller">Bestseller</span>
+                <button class="wishlist-btn js-wishlist-toggle" type="button" aria-pressed="false" aria-label="Add The Lantern Keeper to wishlist">
+                  <svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-heart"></use></svg>
+                </button>
+              </div>
+              <div class="book-card__body">
+                <p class="book-card__category">Fiction</p>
+                <!-- TODO(team): link to the book details page -->
+                <h3 class="book-card__title"><a class="book-card__link" href="#">The Lantern Keeper</a></h3>
+                <p class="book-card__author">by Elena Marsh</p>
+                <p class="book-card__rating">
+                  <span class="visually-hidden">Rated 4.8 out of 5 from 1,284 reviews</span>
+                  <span class="book-card__rating-visual" aria-hidden="true">
+                    <svg class="icon icon--fill" focusable="false"><use href="#icon-star"></use></svg>
+                    <strong>4.8</strong> <span class="book-card__reviews">(1,284)</span>
+                  </span>
+                </p>
+                <div class="book-card__footer">
+                  <p class="book-card__price"><span class="price">$14.99</span></p>
+                  <button class="btn btn--primary btn--sm js-add-to-cart" type="button" data-book-id="bk-001">Add to cart</button>
+                </div>
+              </div>
+            </article>
+          </li>
+
+          <!-- Book 2 -->
+          <li>
+            <article class="book-card js-book-card" data-book-id="bk-002" data-title="Building Resilient Software" data-author="Daniel Okafor" data-category="Technology" data-price="39.00">
+              <div class="book-card__media">
+                <div class="book-cover book-cover--systems" aria-hidden="true">
+                  <span class="book-cover__title">Building Resilient Software</span>
+                  <span class="book-cover__author">Daniel Okafor</span>
+                </div>
+                <span class="badge badge--new">New</span>
+                <button class="wishlist-btn js-wishlist-toggle" type="button" aria-pressed="false" aria-label="Add Building Resilient Software to wishlist">
+                  <svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-heart"></use></svg>
+                </button>
+              </div>
+              <div class="book-card__body">
+                <p class="book-card__category">Technology</p>
+                <h3 class="book-card__title"><a class="book-card__link" href="#">Building Resilient Software</a></h3>
+                <p class="book-card__author">by Daniel Okafor</p>
+                <p class="book-card__rating">
+                  <span class="visually-hidden">Rated 4.7 out of 5 from 642 reviews</span>
+                  <span class="book-card__rating-visual" aria-hidden="true">
+                    <svg class="icon icon--fill" focusable="false"><use href="#icon-star"></use></svg>
+                    <strong>4.7</strong> <span class="book-card__reviews">(642)</span>
+                  </span>
+                </p>
+                <div class="book-card__footer">
+                  <p class="book-card__price"><span class="price">$39.00</span></p>
+                  <button class="btn btn--primary btn--sm js-add-to-cart" type="button" data-book-id="bk-002">Add to cart</button>
+                </div>
+              </div>
+            </article>
+          </li>
+
+          <!-- Book 3 -->
+          <li>
+            <article class="book-card js-book-card" data-book-id="bk-003" data-title="The Founder's Compass" data-author="Priya Raman" data-category="Business" data-price="24.50">
+              <div class="book-card__media">
+                <div class="book-cover book-cover--compass" aria-hidden="true">
+                  <span class="book-cover__title">The Founder's Compass</span>
+                  <span class="book-cover__author">Priya Raman</span>
+                </div>
+                <span class="badge badge--sale">Sale</span>
+                <button class="wishlist-btn js-wishlist-toggle" type="button" aria-pressed="false" aria-label="Add The Founder's Compass to wishlist">
+                  <svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-heart"></use></svg>
+                </button>
+              </div>
+              <div class="book-card__body">
+                <p class="book-card__category">Business</p>
+                <h3 class="book-card__title"><a class="book-card__link" href="#">The Founder's Compass</a></h3>
+                <p class="book-card__author">by Priya Raman</p>
+                <p class="book-card__rating">
+                  <span class="visually-hidden">Rated 4.6 out of 5 from 905 reviews</span>
+                  <span class="book-card__rating-visual" aria-hidden="true">
+                    <svg class="icon icon--fill" focusable="false"><use href="#icon-star"></use></svg>
+                    <strong>4.6</strong> <span class="book-card__reviews">(905)</span>
+                  </span>
+                </p>
+                <div class="book-card__footer">
+                  <p class="book-card__price">
+                    <span class="price">$24.50</span>
+                    <s class="price-old"><span class="visually-hidden">Original price </span>$29.99</s>
+                  </p>
+                  <button class="btn btn--primary btn--sm js-add-to-cart" type="button" data-book-id="bk-003">Add to cart</button>
+                </div>
+              </div>
+            </article>
+          </li>
+
+          <!-- Book 4 -->
+          <li>
+            <article class="book-card js-book-card" data-book-id="bk-004" data-title="Small Habits, Big Shifts" data-author="Marcus Lee" data-category="Self Help" data-price="16.75">
+              <div class="book-card__media">
+                <div class="book-cover book-cover--habits" aria-hidden="true">
+                  <span class="book-cover__title">Small Habits, Big Shifts</span>
+                  <span class="book-cover__author">Marcus Lee</span>
+                </div>
+                <span class="badge badge--popular">Popular</span>
+                <button class="wishlist-btn js-wishlist-toggle" type="button" aria-pressed="false" aria-label="Add Small Habits, Big Shifts to wishlist">
+                  <svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-heart"></use></svg>
+                </button>
+              </div>
+              <div class="book-card__body">
+                <p class="book-card__category">Self Help</p>
+                <h3 class="book-card__title"><a class="book-card__link" href="#">Small Habits, Big Shifts</a></h3>
+                <p class="book-card__author">by Marcus Lee</p>
+                <p class="book-card__rating">
+                  <span class="visually-hidden">Rated 4.9 out of 5 from 2,017 reviews</span>
+                  <span class="book-card__rating-visual" aria-hidden="true">
+                    <svg class="icon icon--fill" focusable="false"><use href="#icon-star"></use></svg>
+                    <strong>4.9</strong> <span class="book-card__reviews">(2,017)</span>
+                  </span>
+                </p>
+                <div class="book-card__footer">
+                  <p class="book-card__price"><span class="price">$16.75</span></p>
+                  <button class="btn btn--primary btn--sm js-add-to-cart" type="button" data-book-id="bk-004">Add to cart</button>
+                </div>
+              </div>
+            </article>
+          </li>
+        </ul>
+
+        <!-- Shown when a search matches none of the featured books -->
+        <p class="books-empty" id="books-empty" hidden>
+          No featured books match your search. Try a different title, author or category.
+        </p>
+      </div>
+    </section>
+
+
+    <!-- =====================================================================
+         5. WHY CHOOSE US SECTION
+         ===================================================================== -->
+    <section class="section section--tint" id="about" aria-labelledby="about-title">
+      <div class="container features">
+        <div class="features__intro">
+          <h2 class="section-title" id="about-title">Why readers choose BookHaven</h2>
+          <p class="section-lead">
+            We keep book buying simple: fair prices, safe checkout and a shelf chosen with care.
+          </p>
+        </div>
+
+        <ul class="feature-list">
+          <li class="feature">
+            <span class="feature__icon"><svg class="icon icon--lg" aria-hidden="true" focusable="false"><use href="#icon-truck"></use></svg></span>
+            <h3 class="feature__title">Fast Delivery</h3>
+            <p class="feature__text">Orders leave our warehouse within 24 hours and reach most cities in 2 to 4 days.</p>
+          </li>
+          <li class="feature">
+            <span class="feature__icon"><svg class="icon icon--lg" aria-hidden="true" focusable="false"><use href="#icon-shield"></use></svg></span>
+            <h3 class="feature__title">Secure Payment</h3>
+            <p class="feature__text">Every payment is encrypted from start to finish, so your details stay yours.</p>
+          </li>
+          <li class="feature">
+            <span class="feature__icon"><svg class="icon icon--lg" aria-hidden="true" focusable="false"><use href="#icon-tag"></use></svg></span>
+            <h3 class="feature__title">Great Prices</h3>
+            <p class="feature__text">Fair prices on every title, plus weekly offers on bestsellers and new releases.</p>
+          </li>
+          <li class="feature">
+            <span class="feature__icon"><svg class="icon icon--lg" aria-hidden="true" focusable="false"><use href="#icon-bookmark"></use></svg></span>
+            <h3 class="feature__title">Curated Collection</h3>
+            <p class="feature__text">Our editors read before they shelve, so every book earns its place.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+
+    <!-- =====================================================================
+         6. NEWSLETTER SECTION
+         Front-end validation only. Subscription handling is left to the
+         backend team (listen for the "bookhaven:newsletter-subscribe" event).
+         ===================================================================== -->
+    <section class="section newsletter" id="newsletter" aria-labelledby="newsletter-title">
+      <div class="container">
+        <div class="newsletter__panel">
+          <div class="newsletter__text">
+            <h2 class="newsletter__title" id="newsletter-title">Never Miss a Great Book</h2>
+            <p class="newsletter__lead">
+              Get new arrivals, reading lists and member-only offers in your inbox once a week.
+            </p>
+          </div>
+
+          <form class="newsletter-form" id="newsletter-form" novalidate>
+            <label class="visually-hidden" for="newsletter-email">Email address</label>
+            <div class="newsletter-form__row">
+              <input class="newsletter-form__input" id="newsletter-email" name="email" type="email" placeholder="you@example.com" autocomplete="email" required aria-describedby="newsletter-message">
+              <button class="btn btn--light" type="submit">Subscribe</button>
+            </div>
+            <p class="form-message" id="newsletter-message" role="status" aria-live="polite"></p>
+            <p class="newsletter-form__note">No spam. Unsubscribe whenever you like.</p>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- =====================================================================
+       7. FOOTER
+       ===================================================================== -->
+  <footer class="site-footer" id="site-footer">
+    <div class="container">
+      <div class="footer__grid">
+
+        <div class="footer__brand">
+          <a class="logo logo--light" href="#home" aria-label="BookHaven home">
+            <span class="logo__mark">
+              <svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-book-open"></use></svg>
+            </span>
+            <span class="logo__text">BookHaven</span>
+          </a>
+          <p class="footer__about">
+            BookHaven is an online bookstore for curious readers. Discover, collect and enjoy books you'll love.
+          </p>
+          <ul class="social-list" aria-label="BookHaven on social media">
+            <li><a class="social-link" href="#" aria-label="Facebook"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-facebook"></use></svg></a></li>
+            <li><a class="social-link" href="#" aria-label="Instagram"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-instagram"></use></svg></a></li>
+            <li><a class="social-link" href="#" aria-label="Twitter"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-twitter"></use></svg></a></li>
+            <li><a class="social-link" href="#" aria-label="LinkedIn"><svg class="icon" aria-hidden="true" focusable="false"><use href="#icon-linkedin"></use></svg></a></li>
+          </ul>
+        </div>
+
+        <nav class="footer__col" aria-labelledby="footer-quick-title">
+          <h2 class="footer__title" id="footer-quick-title">Quick Links</h2>
+          <ul class="footer__list">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#books">Books</a></li>
+            <li><a href="#categories">Categories</a></li>
+            <li><a href="#about">About</a></li>
+          </ul>
+        </nav>
+
+        <nav class="footer__col" aria-labelledby="footer-support-title">
+          <h2 class="footer__title" id="footer-support-title">Support</h2>
+          <ul class="footer__list">
+            <li><a href="#">Help Center</a></li>
+            <li><a href="#">Shipping &amp; Delivery</a></li>
+            <li><a href="#">Returns &amp; Refunds</a></li>
+            <li><a href="#">Contact Us</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="footer__bottom">
+        <p>&copy; <span id="current-year">2026</span> BookHaven. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
