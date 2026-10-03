@@ -236,7 +236,7 @@ button:disabled, .btn[aria-disabled='true'] { cursor: not-allowed; }
 .cart-item__side { display: flex; flex-direction: column; align-items: flex-end; justify-content: space-between; gap: 16px; }
 
 .qty { display: inline-flex; align-items: center; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; background: #fff; }
-.qty-btn { width: 40px; height: 40px; border: 0; background: #fff; font-size: 1.2rem; line-height: 1; color: var(--text); transition: background-color .15s, color .15s; }
+.qty-btn { width: 60px; height: 60px; border: 0; background: #fff; font-size: 1.2rem; line-height: 1; color: var(--text); transition: background-color .15s, color .15s; }
 .qty-btn:hover:not(:disabled) { background: var(--purple-light); color: var(--purple); }
 .qty-btn:disabled { color: #A3AAB6; background: #F9FAFB; }
 .qty-value { min-width: 44px; text-align: center; font-weight: 600; }

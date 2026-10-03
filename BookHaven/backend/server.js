@@ -57,8 +57,31 @@ app.use('/api/cart', cartRoutes);
 app.use('/api/orders', orderRoutes);
 
 // Serve the frontend from the same server so http://localhost:5000 opens the site.
-app.use(express.static(path.join(__dirname, '..', 'frontend')));
+// Serve frontend static files
+const frontendPath = path.join(__dirname, "..", "frontend");
 
+console.log("Frontend path:", frontendPath);
+
+app.use(express.static(frontendPath));
+// Home page
+app.get("/", (req, res) => {
+    res.sendFile(path.join(frontendPath, "index.html"));
+});
+
+// Direct page routes
+app.get("/index.html", (req, res) => {
+    res.sendFile(path.join(frontendPath, "index.html"));
+});
+
+app.get("/cart.html", (req, res) => {
+    res.sendFile(path.join(frontendPath, "cart.html"));
+});
+
+app.get("/checkout.html", (req, res) => {
+    res.sendFile(path.join(frontendPath, "checkout.html"));
+});
+
+// 404 handler MUST be last
 app.use(notFound);
 app.use(errorHandler);
 

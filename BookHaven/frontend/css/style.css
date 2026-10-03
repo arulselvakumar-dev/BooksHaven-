@@ -509,8 +509,8 @@ svg {
   position: relative;
   display: grid;
   place-items: center;
-  width: 2.75rem;
-  height: 2.75rem;
+  width: 20px;
+  height: 20px;
   color: var(--color-ink);
   border-radius: var(--radius-md);
   transition: background-color 0.2s, color 0.2s;
@@ -524,8 +524,8 @@ svg {
 
 .cart-count {
   position: absolute;
-  top: 0.15rem;
-  right: 0.1rem;
+  top: -1rem;
+  right: 0.5rem;
   min-width: 1.15rem;
   height: 1.15rem;
   padding: 0 0.3rem;
